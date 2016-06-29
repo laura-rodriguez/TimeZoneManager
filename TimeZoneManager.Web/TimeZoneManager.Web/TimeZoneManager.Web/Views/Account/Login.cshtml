@@ -1,0 +1,79 @@
+﻿@using TimeZoneManager.Web.Models
+<h2>Log In</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <section id="loginForm">
+            <form id="loginForm">
+                
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <div class="form-group">
+                    <label for="txtUsername" class="col-md-2 control-label">Email</label>
+                    <div class="col-md-10">
+                        <input type="email" class="form-control" id="txtUsername" placeholder="Enter an Email" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword" class="col-md-2 control-label">Password</label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" id="txtPassword" placeholder="Enter an Password" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+    
+</div>
+<div class="row">
+    <div id="loginErrorContainer" class="alert alert-danger"><span id="loginError"></span></div>
+</div>
+
+@section Scripts {
+       
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#loginErrorContainer").hide();
+    });
+
+    $("#loginForm").submit(function (event) {
+        $("#loginError").text("");
+        $("#loginErrorContainer").hide();
+        
+        /* stop form from submitting normally */
+        event.preventDefault();
+
+        /* get some values from elements on the page: */
+        var username = $("#txtUsername").val();
+        var password = $("#txtPassword").val();
+
+        /* Send the data using post */
+        APIService.getToken(username, password).done(function (response) {
+
+            localStorage.setItem("api_token", response.access_token);
+
+            // Get user data
+            APIService.getUserInfo().done(function (response) {
+                
+                setUserInfo(username, response.Roles);
+                redirectOnLogin();
+            }).fail(function (response) {
+                $("#loginError").text("Login Failed.");
+                $("#loginErrorContainer").show();
+            });
+        }).fail(function (response) {
+            $("#loginError").text("Login Failed.");
+            $("#loginErrorContainer").show();
+        });
+    });
+
+</script>
+

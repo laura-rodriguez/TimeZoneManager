@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneManager.DAL", "TimeZoneManager.DAL\TimeZoneManager.DAL.csproj", "{92239C07-DB3D-437E-91F0-792C5C57E475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneManager.API", "TimeZoneManager.API\TimeZoneManager.API.csproj", "{4ECD3212-A79B-4046-B5DD-9AEBE2030122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneManager.API.Tests", "TimeZoneManager.API.Tests\TimeZoneManager.API.Tests.csproj", "{DA15DCC1-2C3C-445D-B6AC-CC76495A95B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeZoneManager.API.Contracts", "TimeZoneManager.API.Contracts\TimeZoneManager.API.Contracts.csproj", "{0AF05765-0339-459A-A4D9-4CEF4C203FCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92239C07-DB3D-437E-91F0-792C5C57E475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92239C07-DB3D-437E-91F0-792C5C57E475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92239C07-DB3D-437E-91F0-792C5C57E475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92239C07-DB3D-437E-91F0-792C5C57E475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ECD3212-A79B-4046-B5DD-9AEBE2030122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ECD3212-A79B-4046-B5DD-9AEBE2030122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ECD3212-A79B-4046-B5DD-9AEBE2030122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ECD3212-A79B-4046-B5DD-9AEBE2030122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA15DCC1-2C3C-445D-B6AC-CC76495A95B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA15DCC1-2C3C-445D-B6AC-CC76495A95B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA15DCC1-2C3C-445D-B6AC-CC76495A95B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA15DCC1-2C3C-445D-B6AC-CC76495A95B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF05765-0339-459A-A4D9-4CEF4C203FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF05765-0339-459A-A4D9-4CEF4C203FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF05765-0339-459A-A4D9-4CEF4C203FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF05765-0339-459A-A4D9-4CEF4C203FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="display: none" data-bind="visible: isVisible" id="usersContainer">
+
+    <div class="page-header">
+        <h1>Users</h1>
+    </div>
+
+    <div id="usersContainer">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="searchText" class="control-label">Search</label>
+                <input type="text" class="form-control" id="searchText" data-bind="value:SearchText" placeholder="Search by name" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Roles</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: users">
+                        <tr>
+                            <td data-bind="text: Email"></td>
+                            <td data-bind="text: RolesAsString()"></td>
+
+                            <td><a href="#" class="btn btn-primary" data-bind="click: $parent.getUserDetail">Modify</a></td>
+                            <td><a href="#" class="btn btn-primary" data-bind="click: $parent.deleteUser">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" data-bind="with: user">
+                <div data-bind="visible: ID() != ''">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Update User</h2>
+                        </div>
+
+                        <div class="panel-body">
+                            <form class="form-horizontal" data-bind="submit: $parent.updateUser">
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="inputEmail" data-bind="value:Email" placeholder="Enter an Email" required />
+                                    </div>
+
+                                    <label for="inputRoles" class="col-sm-3 control-label">Roles</label>
+                                    <div class="col-sm-9">
+                                        <select id="inputRoles" class="form-control" data-bind="options: AvailableRoles, selectedOptions: Roles" size="3" multiple="true"></select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Add User</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-horizontal" data-bind="submit: addUser">
+                            <div class="form-group" data-bind="with: newUser">
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" id="inputEmail" data-bind="value:Email" placeholder="Enter an Email" required />
+                                    </div>
+
+                                    <label for="inputPassword" class="col-sm-3 control-label">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" id="inputPassword" data-bind="value:Password" placeholder="Enter a Password" required />
+                                    </div>
+
+                                    <label for="inputConfirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" id="inputConfirmPassword" data-bind="value:ConfirmPassword" placeholder="Confirm Password" required />
+                                    </div>
+
+                                    <label for="inputRoles" class="col-sm-3 control-label">Roles</label>
+                                    <div class="col-sm-9">
+                                        <select id="inputRoles" class="form-control" data-bind="options: $parent.availableRoles, selectedOptions: Roles" size="3" multiple="true" required></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        ko.applyBindings(masterVM.UserViewModel, document.getElementById('usersContainer'));
+
+        masterVM.UserViewModel.Init();
+        masterVM.UserViewModel.getAllUsers();
+    });
+
+    </script>

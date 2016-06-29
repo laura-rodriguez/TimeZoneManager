@@ -1,0 +1,76 @@
+﻿@model TimeZoneManager.Web.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+<div class="row">
+    <form id="registerForm">
+        <h4>Create a new account.</h4>
+        <hr />
+        <div class="form-group">
+            <label for="txtUsername" class="col-md-2 control-label">Email</label>
+            <div class="col-md-10">
+                <input type="email" class="form-control" id="txtUsername" placeholder="Enter an Email" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtPassword" class="col-md-2 control-label">Password</label>
+            <div class="col-md-10">
+                <input type="password" class="form-control" id="txtPassword" placeholder="Enter an Password" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtConfirmPassword" class="col-md-2 control-label">Confirm Password</label>
+            <div class="col-md-10">
+                <input type="password" class="form-control" id="txtConfirmPassword" placeholder="Confirm Password" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Register" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div id="registerErrorContainer" class="alert alert-danger"><span id="registerError"></span></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#registerErrorContainer").hide();
+    });
+
+
+    $("#registerForm").submit(function (event) {
+        
+        $("#registerError").text("");
+        $("#registerErrorContainer").hide();
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+
+        /* get some values from elements on the page: */
+        var username = $("#txtUsername").val();
+        var password = $("#txtPassword").val();
+        var confirmPassword = $("#txtConfirmPassword").val();
+        /* Send the data using post */
+
+        if (password != confirmPassword) {
+            $("#registerError").text("Password doesn't match");
+            $("#registerErrorContainer").show();
+        }
+        else {
+            APIService.register(username, password, confirmPassword).done(function () {
+                routeService.goToURL('@Url.Action("Login", "Account")');
+            }).fail(function (response) {
+                
+                $("#registerError").text("Register Failed. " + getErrors(JSON.parse(response.responseText || "null")));
+                $("#registerErrorContainer").show();
+            });
+        }
+    });
+
+</script>

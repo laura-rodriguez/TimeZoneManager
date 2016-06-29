@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div style="display: none" data-bind="visible: isVisible" id="timeZonesContainer">
+
+    <div class="page-header">
+        <h1>TimeZones</h1>
+    </div>
+
+    <div id="timeZonesContainer">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="searchText" class="control-label">Search</label>
+                <input type="text" class="form-control" id="searchText" data-bind="value:SearchText" placeholder="Search by name" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Owner</th>
+                            <th>GMT Offset</th>
+                            <th>Current Time</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: timeZones">
+                        <tr>
+                            <td data-bind="text: Name()"></td>
+                            <td data-bind="text: City"></td>
+                            <td data-bind="text: Owner"></td>
+                            <td data-bind="text: GMTOffset"></td>
+                            <td data-bind="text: CurrentTime"></td>
+                            <td><a href="#" class="btn btn-primary" data-bind="click: $parent.getTimeZoneDetail">Modify</a></td>
+                            <td><a href="#" class="btn btn-primary" data-bind="click: $parent.deleteTimeZone">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" data-bind="with: timeZone">
+                <div data-bind="visible: ID() > 0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Update TimeZone</h2>
+                        </div>
+
+                        <div class="panel-body">
+                            <form class="form-horizontal" data-bind="submit: $parent.updateTimeZone">
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-3 control-label">Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="inputName" data-bind="value:Name" placeholder="Enter a Name" required />
+                                    </div>
+
+                                    <label for="inputGMTOffset" class="col-sm-3 control-label">GMT Offset</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" min="-12" max="12" id="inputGMTOffset" data-bind="value:GMTOffset" required />
+                                    </div>
+
+                                    <label for="inputCity" class="col-sm-3 control-label">City</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="inputCity" data-bind="value:City" placeholder="Enter a City" required />
+                                    </div>
+
+                                    <label for="inputOwner" class="col-sm-3 control-label">Owner</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="inputOwner" readonly="readonly" data-bind="value:Owner" />
+                                    </div>
+
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Add TimeZone</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-horizontal" data-bind="submit: addTimeZone">
+                            <div class="form-group" data-bind="with: newTimeZone">
+                                <label for="inputName" class="col-sm-3 control-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputName" data-bind="value:Name" placeholder="Enter a Name" required />
+                                </div>
+
+                                <label for="inputGMTOffset" class="col-sm-3 control-label">GMT Offset</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="inputGMTOffset" min="-12" max="12" data-bind="value:GMTOffset" placeholder="0" required />
+                                </div>
+
+                                <label for="inputCity" class="col-sm-3 control-label">City</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputCity" data-bind="value:City" placeholder="Enter a City" required />
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        ko.applyBindings(masterVM.TimeZoneViewModel, document.getElementById('timeZonesContainer'));
+
+        masterVM.TimeZoneViewModel.Init();
+        masterVM.TimeZoneViewModel.getAllTimeZones();
+    });
+
+    </script>

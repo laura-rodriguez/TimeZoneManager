@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeZone Manager</title>
+    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/alertify")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/Helpers")
+    @Scripts.Render("~/bundles/ViewModels")
+
+</head>
+<body>
+    <script type="text/javascript">
+        var masterVM;
+
+        $(document).ready(function () {
+            masterVM = new MasterViewModel();
+        });
+    </script>
+
+    <div class="loadingContainer">
+        @Html.Partial("_Loading")
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand" onclick="routeService.goToURL('@Url.Action("Index","Home")')">TimeZone Manager</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li id="usersLink"><a href="#" onclick="routeService.goToURL('@Url.Action("Index","User")')">Users</a></li>
+                    <li id="timeZonesLink"><a href="#" onclick="routeService.goToURL('@Url.Action("Index","TimeZone")')">TimeZones</a></li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div id="mainContainer" class="container body-content">
+        @RenderBody()
+    </div>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script type="text/javascript">
+
+    $(document).ajaxComplete(function () {
+        hideLoading();
+    }).ajaxStart(function () { showLoading()});
+
+    $(document).ready(function () {
+        updateHeader();
+    });
+   
+</script>
